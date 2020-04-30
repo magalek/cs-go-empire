@@ -6,6 +6,7 @@ import csv
 from datetime import datetime
 import os.path
 from os import path
+from spreadsheet import Sheet
 
 driver = webdriver.Chrome('C:/Users/Filip/Downloads/chromedriver_win32/chromedriver.exe')
 
@@ -16,6 +17,8 @@ last_coins_element = driver.find_element_by_xpath('//*[@id="page-scroll"]/div/se
 all_coins = driver.find_elements_by_class_name('previous-rolls-item')
 
 background = driver.find_element_by_xpath('//*[@id="page-scroll"]/div/section/div/div/div[3]')
+
+sheet = Sheet()
 
 def get_timer():
     timer_buf = None
@@ -61,7 +64,9 @@ def write_roll_to_csv(roll):
             writer = csv.writer(csvfile, delimiter=',',
                                     quotechar=' ', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(["Date", 'Roll'])
-            writer.writerow([datetime.now().strftime("%d/%m/%Y %H:%M:%S"),roll])
+            values = [datetime.now().strftime("%d/%m/%Y %H:%M:%S"), roll]
+            writer.writerow(values)
+            
 
 timer = get_timer()
 
@@ -75,6 +80,7 @@ while 1:
             timer = get_timer()
             bet = get_roll_string(get_roll())
             print(bet)
+            sheet.write([datetime.now().strftime("%d/%m/%Y %H:%M:%S"), bet])
             write_roll_to_csv(bet)
 
     #print(background.get_attribute('style'))
