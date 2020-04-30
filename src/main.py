@@ -6,7 +6,7 @@ import csv
 from datetime import datetime
 import os.path
 from os import path
-from spreadsheet import Sheet
+from sheet import Sheet
 
 driver = webdriver.Chrome('C:/Users/Filip/Downloads/chromedriver_win32/chromedriver.exe')
 
