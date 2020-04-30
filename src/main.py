@@ -63,13 +63,6 @@ def write_roll_to_csv(roll):
             writer.writerow(["Date", 'Roll'])
             writer.writerow([datetime.now().strftime("%d/%m/%Y %H:%M:%S"),roll])
 
-elapsed_time = None
-
-
-timer = None
-
-last_bet = get_roll()
-
 timer = get_timer()
 
 while 1:
