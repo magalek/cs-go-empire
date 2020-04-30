@@ -11,3 +11,6 @@ class Sheet:
 
     def write(self, values):
         self.sheet.append_row(values) 
+
+    def write_header(self):
+        self.write(['----------------------NEW DATA START----------------------'])

@@ -20,6 +20,8 @@ background = driver.find_element_by_xpath('//*[@id="page-scroll"]/div/section/di
 
 sheet = Sheet()
 
+sheet.write_header()
+
 def get_timer():
     timer_buf = None
     
@@ -48,8 +50,11 @@ def get_roll_string(roll):
         return 'CT'
     if roll.find('coin-t') != -1:
         return 'T'
+    if roll.find('coin-bonuspot') != -1:
+        return 'BONUS' 
     if roll.find('coin-bonus') != -1:
         return 'MIDDLE'    
+       
         
 
 def write_roll_to_csv(roll):
@@ -66,7 +71,6 @@ def write_roll_to_csv(roll):
             writer.writerow(["Date", 'Roll'])
             values = [datetime.now().strftime("%d/%m/%Y %H:%M:%S"), roll]
             writer.writerow(values)
-            
 
 timer = get_timer()
 
