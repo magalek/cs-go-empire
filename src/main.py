@@ -34,7 +34,7 @@ def get_timer():
             pass
     return background.find_element_by_xpath('//*[@id="page-scroll"]/div/section/div/div/div[3]/div[2]/div/div[2]')
 
-def get_roll():
+def get_roll_element():
     bet_buf = None
 
     while bet_buf is None:
@@ -55,8 +55,6 @@ def get_roll_string(roll):
     if roll.find('coin-bonus') != -1:
         return 'MIDDLE'    
        
-        
-
 def write_roll_to_csv(roll):
     
     if path.exists('bets.csv'):
@@ -72,6 +70,14 @@ def write_roll_to_csv(roll):
             values = [datetime.now().strftime("%d/%m/%Y %H:%M:%S"), roll]
             writer.writerow(values)
 
+def get_input_element():
+    return driver.find_element_by_xpath('//*[@id="page-scroll"]/div/section/div/div/div[5]/div/div[1]/input')
+
+amount_input_field = get_input_element()
+
+def input_coin_amount(value):
+    amount_input_field.send_keys(str(value))
+
 timer = get_timer()
 
 while 1:
@@ -82,7 +88,7 @@ while 1:
         except:
             print('Rolling')
             timer = get_timer()
-            bet = get_roll_string(get_roll())
+            bet = get_roll_string(get_roll_element())
             print(bet)
             sheet.write([datetime.now().strftime("%d/%m/%Y %H:%M:%S"), bet])
             write_roll_to_csv(bet)
